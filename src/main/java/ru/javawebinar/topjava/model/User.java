@@ -22,6 +22,8 @@ public class User extends NamedEntity {
 
     private Set<Role> roles;
 
+    private Set<Meal> meals;
+
     private int caloriesPerDay = MealsUtil.DEFAULT_CALORIES_PER_DAY;
 
     public User() {
@@ -38,6 +40,14 @@ public class User extends NamedEntity {
         this.caloriesPerDay = caloriesPerDay;
         this.enabled = enabled;
         this.roles = roles;
+    }
+
+    public Set<Meal> getMeals() {
+        return meals;
+    }
+
+    public void setMeals(Set<Meal> meals) {
+        this.meals = meals;
     }
 
     public String getEmail() {

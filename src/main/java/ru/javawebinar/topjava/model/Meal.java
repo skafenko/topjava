@@ -17,15 +17,22 @@ public class Meal {
 
     private final int calories;
 
-    public Meal(LocalDateTime dateTime, String description, int calories) {
-        this(null, dateTime, description, calories);
+    private User user;
+
+    public Meal(User user, LocalDateTime dateTime, String description, int calories) {
+        this(user, null, dateTime, description, calories);
     }
 
-    public Meal(Integer id, LocalDateTime dateTime, String description, int calories) {
+    public Meal(User user, Integer id, LocalDateTime dateTime, String description, int calories) {
+        this.user = user;
         this.id = id;
         this.dateTime = dateTime;
         this.description = description;
         this.calories = calories;
+    }
+
+    public User getUser() {
+        return user;
     }
 
     public Integer getId() {
