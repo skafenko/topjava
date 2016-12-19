@@ -1,6 +1,7 @@
 package ru.javawebinar.topjava.repository.mock;
 
 import org.slf4j.Logger;
+import org.springframework.stereotype.Repository;
 import ru.javawebinar.topjava.model.Meal;
 import ru.javawebinar.topjava.repository.MealRepository;
 import ru.javawebinar.topjava.util.MealsUtil;
@@ -17,6 +18,7 @@ import static org.slf4j.LoggerFactory.getLogger;
  * GKislin
  * 15.09.2015.
  */
+@Repository
 public class InMemoryMealRepositoryImpl implements MealRepository {
     private static final Logger LOG = getLogger(InMemoryMealRepositoryImpl.class);
     private Map<Integer, Meal> repository = new ConcurrentHashMap<>();
@@ -42,11 +44,12 @@ public class InMemoryMealRepositoryImpl implements MealRepository {
     }
 
     @Override
-    public void delete(int id, int userId) {
+    public boolean delete(int id, int userId) {
         LOG.info("delete " + id);
         if (get(id, userId) != null) {
-            repository.remove(id);
+            return repository.remove(id) != null;
         }
+        return false;
     }
 
     @Override
