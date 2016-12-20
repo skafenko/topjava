@@ -13,12 +13,49 @@
         .exceeded {
             color: red;
         }
+        dl {
+            background: none repeat scroll 0 0 #FAFAFA;
+            margin: 10px 0;
+            padding: 0;
+        }
+        dt {
+            display: inline-block;
+            width: 170px;
+            margin: 0 20px;
+        }
+
+        dd {
+            display: inline-block;
+            margin-left: 8px;
+            vertical-align: top;
+        }
     </style>
 </head>
 <body>
 <section>
     <h2><a href="index.html">Home</a></h2>
     <h2>Meal list</h2>
+    <form action="meals" method="post">
+        <dl>
+            <dt>От даты:</dt>
+            <dd><input type="date" value="${startDate}" name="startDate"></dd>
+        </dl>
+        <dl>
+            <dt>До даты:</dt>
+            <dd><input type="date" value="${endDate}" name="endDate"></dd>
+        </dl>
+        <dl>
+            <dt>От времени:</dt>
+            <dd><input type="time" value="${startTime}" name="startTime"></dd>
+        </dl>
+        <dl>
+            <dt>До времени:</dt>
+            <dd><input type="time" value="${endTime}" name="endTime"></dd>
+        </dl>
+        <button type="submit" name="command" value="filter">Отфильтровать</button>
+    </form>
+
+
     <a href="meals?action=create">Add Meal</a>
     <hr>
     <table border="1" cellpadding="8" cellspacing="0">

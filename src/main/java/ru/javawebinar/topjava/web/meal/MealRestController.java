@@ -7,10 +7,13 @@ import ru.javawebinar.topjava.AuthorizedUser;
 import ru.javawebinar.topjava.model.Meal;
 import ru.javawebinar.topjava.service.MealService;
 import ru.javawebinar.topjava.to.MealWithExceed;
+import ru.javawebinar.topjava.util.DateTimeUtil;
 import ru.javawebinar.topjava.util.MealsUtil;
-import ru.javawebinar.topjava.util.ValidationUtil;
 
-import java.util.Collection;
+import java.time.LocalDate;
+import java.time.LocalTime;
+import java.util.List;
+import java.util.stream.Collectors;
 
 import static org.slf4j.LoggerFactory.getLogger;
 
@@ -24,6 +27,11 @@ public class MealRestController {
 
     @Autowired
     private MealService service;
+
+    public Meal update(Meal meal) {
+        LOG.info("update " + meal);
+        return service.save(meal, AuthorizedUser.id());
+    }
 
     public Meal save(Meal meal) {
         LOG.info("save " + meal);
@@ -40,9 +48,16 @@ public class MealRestController {
         return service.get(id, AuthorizedUser.id());
     }
 
-    public Collection<MealWithExceed> getAll() {
+    public List<MealWithExceed> getAll() {
         LOG.info("getAll");
         return MealsUtil.getWithExceeded(service.getAll(AuthorizedUser.id()), AuthorizedUser.getCaloriesPerDay());
     }
 
+    public List<MealWithExceed> getFiltered(LocalDate startDate, LocalTime startTime, LocalDate endDate, LocalTime endTime) {
+        LOG.info("getFiltered");
+
+        return MealsUtil.getFilteredWithExceeded(service.getAll(AuthorizedUser.id()), startTime, endTime, AuthorizedUser.getCaloriesPerDay()).stream()
+                .filter(m -> DateTimeUtil.isBetween(m.getDateTime().toLocalDate(), startDate, endDate))
+                .collect(Collectors.toList());
+    }
 }
