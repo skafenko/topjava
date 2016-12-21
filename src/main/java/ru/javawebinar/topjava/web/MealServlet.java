@@ -44,6 +44,14 @@ public class MealServlet extends HttpServlet {
     }
 
     @Override
+    public void destroy() {
+        //Закрывать springContext в сервлете грамотнее всего в HttpServlet.destroy():
+        // если где-то в контексте Spring будет ленивая инициализация, метод-фабрика,
+        // не синглетон-scope, то контекст понадобится при работе приложения.
+        // У нас такого нет, но делать надо все грамотно.
+    }
+
+    @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         request.setCharacterEncoding("UTF-8");
         String command = request.getParameter("command");

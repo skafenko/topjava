@@ -7,9 +7,14 @@ import ru.javawebinar.topjava.util.MealsUtil;
  * 06.03.2015.
  */
 public class AuthorizedUser {
+    private static int userId;
 
     public static int id() {
-        return 1;
+        return userId;
+    }
+
+    public static void setUserId(int userId) {
+        AuthorizedUser.userId = userId;
     }
 
     public static int getCaloriesPerDay() {
