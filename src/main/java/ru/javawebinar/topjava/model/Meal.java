@@ -32,7 +32,7 @@ public class Meal extends BaseEntity {
 
 
     @Column(name = "date_time", nullable = false)
-    @NotEmpty
+    @NotNull
     private LocalDateTime dateTime;
 
     @Column(name = "description", nullable = false)
@@ -40,12 +40,12 @@ public class Meal extends BaseEntity {
     private String description;
 
     @Column(name = "calories", nullable = false)
-    @NotEmpty
+    @NotNull
     private int calories;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
-    @NotEmpty
+    @NotNull
     private User user;
 
     public Meal() {
