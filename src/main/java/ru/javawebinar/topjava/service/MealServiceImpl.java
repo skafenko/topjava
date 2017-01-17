@@ -27,6 +27,11 @@ public class MealServiceImpl implements MealService {
     }
 
     @Override
+    public Meal get(int id) throws UnsupportedOperationException {
+        return repository.get(id);
+    }
+
+    @Override
     public void delete(int id, int userId) {
         checkNotFoundWithId(repository.delete(id, userId), id);
     }
