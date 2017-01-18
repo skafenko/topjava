@@ -27,8 +27,8 @@ public class MealServiceImpl implements MealService {
     }
 
     @Override
-    public Meal get(int id) throws UnsupportedOperationException {
-        return repository.get(id);
+    public Meal getWithUser(int id) throws UnsupportedOperationException {
+        return repository.getWithUser(id);
     }
 
     @Override

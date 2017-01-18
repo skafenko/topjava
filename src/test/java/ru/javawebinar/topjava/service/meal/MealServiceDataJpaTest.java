@@ -14,8 +14,8 @@ import ru.javawebinar.topjava.model.Meal;
 public class MealServiceDataJpaTest extends MealServiceAbstTest {
 
     @Test
-    public void testGetById() throws Exception {
-        Meal actual = service.get(MealTestData.MEAL1_ID);
+    public void testGetByIdWithUser() throws Exception {
+        Meal actual = service.getWithUser(MealTestData.MEAL1_ID);
         Meal expected = MealTestData.MEAL1;
         expected.setUser(UserTestData.USER);
         MealTestData.MATCHER.assertEquals(actual, expected);

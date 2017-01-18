@@ -15,7 +15,7 @@ import java.util.Collection;
 public interface MealService {
     Meal get(int id, int userId) throws NotFoundException;
 
-    Meal get(int id) throws UnsupportedOperationException;
+    Meal getWithUser(int id) throws UnsupportedOperationException;
 
     void delete(int id, int userId) throws NotFoundException;
 
