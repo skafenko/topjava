@@ -1,8 +1,10 @@
 package ru.javawebinar.topjava.service;
 
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cglib.core.CollectionUtils;
 import org.springframework.core.env.Environment;
 import org.springframework.dao.DataAccessException;
 import ru.javawebinar.topjava.Profiles;
@@ -15,6 +17,7 @@ import javax.validation.ConstraintViolationException;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.Set;
 
 import static ru.javawebinar.topjava.UserTestData.*;
 
@@ -38,6 +41,12 @@ public abstract class AbstractUserServiceTest extends AbstractServiceTest {
                 break;
             }
         }
+    }
+
+    @Test
+    public void testRolies() throws Exception {
+        User user = service.get(ADMIN_ID);
+        Assert.assertTrue(user.getRoles().containsAll(Arrays.asList(Role.ROLE_USER, Role.ROLE_ADMIN)));
     }
 
     @Test
