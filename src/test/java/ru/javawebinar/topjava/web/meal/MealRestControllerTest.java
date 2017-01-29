@@ -10,12 +10,9 @@ import ru.javawebinar.topjava.util.MealsUtil;
 import ru.javawebinar.topjava.web.AbstractControllerTest;
 import ru.javawebinar.topjava.web.json.JsonUtil;
 
-import java.time.LocalDateTime;
-import java.time.Month;
-import java.time.format.DateTimeFormatter;
+import java.time.LocalTime;
 import java.util.Arrays;
 
-import static java.time.LocalDateTime.of;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
@@ -85,16 +82,17 @@ public class MealRestControllerTest extends AbstractControllerTest {
 
     @Test
     public void getBetween() throws Exception {
-        DateTimeFormatter formatter = DateTimeFormatter.ISO_LOCAL_DATE_TIME;
-        LocalDateTime startDateTime = of(2015, Month.MAY, 30, 10, 0);
-        LocalDateTime endDateTime = of(2015, Month.MAY, 30, 12, 0);
+        String startTime = "10:00:00";
+        String endTime = "15:00:00";
+        String startDateTime = "2015-05-30T" + startTime;
+        String endDateTime = "2015-05-30T" + endTime;
 
-        mockMvc.perform(get(REST_URL + "filter?startDateTime=" + formatter.format(startDateTime) + "&endDateTime=" + formatter.format(endDateTime)))
+        mockMvc.perform(get(REST_URL + "filter?startDateTime=" + startDateTime + "&endDateTime=" + endDateTime))
                 .andDo(print())
                 .andExpect(status().isOk())
                 .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
-                .andExpect(MATCHER_WITH_EXCEED.contentListMatcher(MealsUtil.getFilteredWithExceeded(Arrays.asList(MEAL3, MEAL2, MEAL1), startDateTime.toLocalTime()
-                        , endDateTime.toLocalTime(), USER.getCaloriesPerDay())));
+                .andExpect(MATCHER_WITH_EXCEED.contentListMatcher(MealsUtil.getFilteredWithExceeded(Arrays.asList(MEAL3, MEAL2, MEAL1),
+                        LocalTime.parse(startTime), LocalTime.parse(endTime), USER.getCaloriesPerDay())));
     }
 
 }
