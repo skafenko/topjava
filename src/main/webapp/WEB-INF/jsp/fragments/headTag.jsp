@@ -22,4 +22,12 @@
     <script type="text/javascript" src="webjars/datatables/1.10.13/js/dataTables.bootstrap.min.js" defer></script>
     <script type="text/javascript" src="webjars/noty/2.3.8/js/noty/packaged/jquery.noty.packaged.min.js" defer></script>
     <script type="text/javascript" src="webjars/datetimepicker/2.5.4/build/jquery.datetimepicker.full.min.js" defer></script>
+
+    <script type="text/javascript">
+        var i18n = [];
+
+        <c:forEach var='key' items="common.deleted,common.saved,common.enabled,common.disabled,common.failed">
+        i18n['${key}'] = '<spring:message code="${key}"/>';
+        </c:forEach>
+    </script>
 </head>
