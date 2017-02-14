@@ -16,7 +16,36 @@ function updateTable() {
     });
 }
 
+
 $(function () {
+    $.datetimepicker.setDateFormatter({
+        parseDate: function (date, format) {
+            var d = moment(date, format);
+            return d.isValid() ? d.toDate() : false;
+        },
+
+        formatDate: function (date, format) {
+            return moment(date).format(format);
+        }
+    });
+
+    $(".datepicker").datetimepicker({
+        timepicker:false,
+        format:'Y-m-d'
+    });
+
+    $(".timepicker").datetimepicker({
+        datepicker:false,
+        format:'H:i'
+    });
+
+    $(".datetimepicker").datetimepicker({
+        todayButton:true,
+        format:'YYYY-MM-DDThh:mm',
+        formatTime:'hh:mm',
+        formatDate:'YYYY-MM-DD'
+    });
+
     datatableApi = $("#datatable").DataTable({
         "ajax": {
             "url": ajaxUrl,
@@ -29,7 +58,7 @@ $(function () {
                 "data": "dateTime",
                 "render": function (date, type, row) {
                     if (type == 'display') {
-                        return '<span>' + date.substring(0, 10) + '</span>';
+                        return '<span>' + date.substring(0, 16).replace("T", " ") + '</span>';
                     }
                     return date;
                 }
